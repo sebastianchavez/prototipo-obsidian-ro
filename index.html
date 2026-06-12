@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ObsidianRO - Servidor Ragnarok Online Pre-Renewal High Rate</title>
+  <meta name="description" content="ObsidianRO es un servidor privado Pre-Renewal High Rate de Ragnarok Online inspirado en los misterios de Niflheim. Base estable, eventos únicos y comunidad activa.">
+  
+  <!-- Estilos base -->
+  <link rel="stylesheet" href="./assets/styles/nova.css">
+  
+  <!-- Tipografías de Google y estilos avanzados -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Relief&family=Comforter&display=swap');
+
+    :root {
+      --color-gold: #c5a059;
+      --color-gold-glow: rgba(197, 160, 89, 0.4);
+      --color-teal: #1d7671;
+      --color-teal-hover: #218c86;
+      --color-purple: #5d4aa8;
+      --color-purple-hover: #6c57c2;
+      --color-bg-dark: #09090b;
+      --color-cyan-glow: #00bcff;
+    }
+
+    body, button, input, select, textarea {
+      font-family: 'Comic Relief', sans-serif;
+    }
+
+    body {
+      background-color: var(--color-bg-dark);
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .stat-num {
+      font-weight: 700;
+    }
+
+    /* Mago con contenedor resplandeciente */
+    .hero-mage-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-mage-card {
+      border: none;
+      box-shadow: none;
+      border-radius: 4px;
+      overflow: visible;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: transparent;
+      /* max-width: 440px; */
+      width: 100%;
+    }
+
+    .hero-mage-card::after {
+      display: none;
+    }
+
+    .hero-mage-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .hero-mage-card:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    /* Sección ¿Por qué ObsidianRO? */
+    .why-section {
+      background-color: #ffffff;
+      color: #2f3542;
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .why-container {
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .why-title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .why-gold-line {
+      height: 2px;
+      flex-grow: 1;
+      /* max-width: 150px; */
+      background-color: var(--color-gold);
+    }
+
+    .why-title {
+      font-weight: 700;
+      font-size: 2.6rem;
+      color: #1a1a1a;
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .why-title span {
+      font-style: italic;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .why-paragraph {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      margin-bottom: 2.2rem;
+      color: #4f5664;
+      font-weight: 400;
+    }
+
+    .why-paragraph strong {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    /* Sección de características (Premium Feature Showcase) */
+    .features-section {
+      background-color: #fafbfc;
+      padding: 6rem 0;
+      border-top: 1px solid #eaeaea;
+      color: #2f3542;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .features-header h2 {
+      font-size: 2.3rem;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+    }
+
+    .features-header p {
+      font-size: 1.1rem;
+      color: #747d8c;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 3rem 2.2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      border: 1px solid #f1f2f6;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      border-color: rgba(197, 160, 89, 0.35);
+    }
+
+    .feature-icon-wrapper {
+      width: 75px;
+      height: 75px;
+      background: rgba(197, 160, 89, 0.08);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon-wrapper {
+      background: rgba(197, 160, 89, 0.16);
+      transform: scale(1.1);
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .feature-card h3 {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #1a1a1a;
+      margin: 0 0 1rem 0;
+    }
+
+    .feature-card p {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #57606f;
+      margin: 0;
+    }
+
+    /* Footer */
+    .footer-custom {
+      background-color: #0b0b0d;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-custom p {
+      color: #747d8c;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Animación flotante para el mago */
+    @keyframes floatMage {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .mage-floating {
+      animation: floatMage 6s ease-in-out infinite;
+    }
+
+    /* Clases de animación por scroll */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR FIJO -->
+  <nav class="navbar-fixed">
+    <div class="navbar-container">
+      
+      <!-- Logo de Servidor -->
+      <a href="index.html" class="nav-logo">
+        <img src="./assets/icons/logo.png" alt="ObsidianRO Logo">
+      </a>
+      
+      <!-- Centro: Stats y Menú -->
+      <div class="nav-center">
+        <div class="nav-stats">
+          Online: <span class="stat-num text-tertiary">120</span> | 
+          Vending: <span class="stat-num text-tertiary">30</span> | 
+          Peak: <span class="stat-num text-tertiary">200</span>
+        </div>
+        <div class="nav-links">
+          <a href="descarga.html">Descargas</a>
+          <a href="staff.html">Staff</a>
+          <a href="informacion.html">Informacion</a>
+          <a href="donaciones.html">Donaciones</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="wiki.html">Wiki</a>
+        </div>
+      </div>
+      
+      <!-- Acciones de Acceso -->
+      <div class="nav-actions">
+        <a href="login.html" class="btn-nav btn-acceder">Acceder</a>
+        <a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a>
+      </div>
+      
+    </div>
+  </nav>
+
+  <!-- HERO HEADER SECTION -->
+  <header class="hero-section">
+    <div class="hero-container">
+      
+      <!-- Información del Hero (Izquierda) -->
+      <div class="hero-content fade-up">
+        <h1 class="hero-title">ObsidianRo</h1>
+        
+        <p class="hero-desc">
+          ObsidianRO es un servidor Pre-Renewal High Rate de Ragnarok Online inspirado en los misterios de Niflheim. Nuestra aventura se desarrolla sobre una base estable y balanceada, incorporando contenido personalizado, eventos competitivos y sistemas diseñados para ofrecer una experiencia única tanto para veteranos como para nuevos aventureros.
+        </p>
+        
+        <p class="hero-subdesc">
+          Crea tu cuenta, descarga el cliente y adéntrate en los secretos de Niflheim
+        </p>
+        
+        <div class="hero-buttons">
+          <a href="registro.html" class="btn-hero btn-hero-purple">Registro</a>
+          <a href="descarga.html" class="btn-hero btn-hero-teal">Descarga</a>
+        </div>
+      </div>
+      
+      <!-- Mago del Hero (Derecha) -->
+      <div class="hero-mage-wrapper fade-in mage-floating">
+        <div class="hero-mage-card">
+          <img src="./assets/images/mago.png" alt="Mago de ObsidianRO">
+        </div>
+      </div>
+      
+    </div>
+  </header>
+
+  <!-- SECCIÓN ¿POR QUÉ OBSIDIANRO? -->
+  <section class="why-section">
+    <div class="why-container scroll-reveal">
+      
+      <div class="why-title-container">
+        <div class="why-gold-line"></div>
+        <h2 class="why-title">¿Por qué <span>ObsidianRO</span>?</h2>
+        <div class="why-gold-line"></div>
+      </div>
+      
+      <p class="why-paragraph">
+        <strong>ObsidianRO</strong> es un servidor privado Pre-Renewal High Rate diseñado para quienes buscan una experiencia competitiva, estable y llena de contenido. Inspirado en los misterios de Niflheim, nuestro mundo combina la esencia clásica de Ragnarok Online con sistemas exclusivos, eventos personalizados y constantes mejoras desarrolladas para ofrecer una aventura única.
+      </p>
+      
+      <p class="why-paragraph">
+        Nuestro objetivo es construir una comunidad activa donde jugadores nuevos y veteranos puedan explorar, competir, formar alianzas y dejar su huella en la historia del reino. Encontrarás una amplia variedad de equipamiento, instancias, desafíos PvM, contenido PvP y Guerras de Emperium diseñadas para mantener la emoción en cada etapa del juego.
+      </p>
+      
+      <p class="why-paragraph">
+        Además, contamos con eventos frecuentes, sistemas exclusivos, mejoras de calidad de vida y un equipo de administración comprometido con el crecimiento del servidor y el bienestar de la comunidad.
+      </p>
+      
+    </div>
+  </section>
+
+  <!-- SECCIÓN CARACTERÍSTICAS DEL SERVIDOR -->
+  <section class="features-section">
+    <div class="features-container">
+      
+      <div class="features-header scroll-reveal">
+        <h2>Características Destacadas</h2>
+        <p>Descubre los pilares que hacen de ObsidianRO el servidor definitivo para tu aventura.</p>
+      </div>
+      
+      <div class="features-grid">
+        
+        <!-- Tarjeta 1: Rates -->
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon-wrapper">
+            <img src="./assets/icons/ratesIcon.png" alt="Rates Icon" class="feature-icon">
+          </div>
+          <h3>Rates Competitivos</h3>
+          <p>Experiencia acelerada High Rate diseñada para maximizar la diversión en las mecánicas de leveleo y equipamiento.</p>
+        </div>
+        
+        <!-- Tarjeta 2: Anticheat -->
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon-wrapper">
+            <img src="./assets/icons/anticheatIcon.png" alt="Anticheat Icon" class="feature-icon">
+          </div>
+          <h3>Juego Limpio</h3>
+          <p>Protección anticheat activa las 24 horas para garantizar una experiencia justa y competitiva para todos los jugadores.</p>
+        </div>
+        
+        <!-- Tarjeta 3: Eventos -->
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon-wrapper">
+            <img src="./assets/icons/eventIcon.png" alt="Event Icon" class="feature-icon">
+          </div>
+          <h3>Eventos Exclusivos</h3>
+          <p>Sistemas de juego personalizados y eventos diarios con recompensas únicas inspirados en la temática de Niflheim.</p>
+        </div>
+        
+        <!-- Tarjeta 4: WoE -->
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon-wrapper">
+            <img src="./assets/icons/woeIcon.png" alt="WoE Icon" class="feature-icon">
+          </div>
+          <h3>War of Emperium</h3>
+          <p>Batallas gremiales dinámicas y competitivas. Conquista castillos e impón el nombre de tu clan en lo alto del servidor.</p>
+        </div>
+        
+        <!-- Tarjeta 5: Comunidad -->
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon-wrapper">
+            <img src="./assets/icons/comunidadIcon.png" alt="Comunidad Icon" class="feature-icon">
+          </div>
+          <h3>Gran Comunidad</h3>
+          <p>Soporte de administración comprometido y una comunidad unida en Discord y foros oficiales del servidor.</p>
+        </div>
+        
+        <!-- Tarjeta 6: Economía -->
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon-wrapper">
+            <img src="./assets/icons/zenyIcon.png" alt="Zeny Icon" class="feature-icon">
+          </div>
+          <h3>Mercado Balanceado</h3>
+          <p>Economía y sistemas de comercio controlados para evitar inflación y fomentar el libre mercado entre aventureros.</p>
+        </div>
+        
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA (FOOTER) -->
+  <footer class="footer-custom">
+    <div class="container text-center">
+      <p>© 2026 ObsidianRO. Todos los derechos reservados. Ragnarok Online es propiedad de Gravity Co., Ltd.</p>
+    </div>
+  </footer>
+
+  <!-- LÓGICA JAVASCRIPT -->
+  <script>
+    // 1. Cambio de estilo del Navbar al scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar-fixed');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // 2. Animaciones al scroll (Intersection Observer)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Una vez activado, podemos dejar de observar el elemento
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

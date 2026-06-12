@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Información - ObsidianRO Ragnarok Online</title>
+  <meta name="description" content="Consulta las características, configuración, rates y toda la información técnica de ObsidianRO Ragnarok Online.">
+  
+  <!-- Estilos base -->
+  <link rel="stylesheet" href="./assets/styles/nova.css">
+  
+  <!-- Tipografías de Google y estilos avanzados -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Relief&family=Comforter&display=swap');
+
+    :root {
+      --color-gold: #c5a059;
+      --color-gold-glow: rgba(197, 160, 89, 0.4);
+      --color-teal: #1d7671;
+      --color-teal-hover: #218c86;
+      --color-purple: #5d4aa8;
+      --color-purple-hover: #6c57c2;
+      --color-bg-dark: #09090b;
+      --color-card-bg: #050b0e;
+      --color-card-border: rgba(29, 118, 113, 0.3);
+      --color-accent-teal: #20b2aa;
+    }
+
+    body, button, input, select, textarea {
+      font-family: 'Comic Relief', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #2f3542;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar fijo con transición al scroll (Igual a index.html) */
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: rgba(9, 9, 11, 0.85); /* Un poco más oscuro inicial en páginas blancas para legibilidad */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1.2rem 4rem;
+      box-sizing: border-box;
+    }
+
+    .navbar-fixed.scrolled {
+      background: rgba(9, 9, 11, 0.95);
+      padding: 0.7rem 4rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+      border-bottom: 1px solid var(--color-gold-glow);
+    }
+
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(93, 74, 168, 0.5));
+      transition: transform 0.4s ease;
+    }
+
+    .nav-logo:hover img {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Centro del Navbar (Stats y Menú) */
+    .nav-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-stats {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #a4b0be;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .stat-num {
+      font-weight: 700;
+    }
+    .stat-online { color: #2ed573; text-shadow: 0 0 8px rgba(46, 213, 115, 0.5); }
+    .stat-vending { color: #ffa502; text-shadow: 0 0 8px rgba(255, 165, 2, 0.5); }
+    .stat-peak { color: #ff4757; text-shadow: 0 0 8px rgba(255, 71, 87, 0.5); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.2rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Acciones del Navbar */
+    .nav-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-nav {
+      text-decoration: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-acceder {
+      background-color: var(--color-teal);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(29, 118, 113, 0.3);
+    }
+
+    .btn-acceder:hover {
+      background-color: var(--color-teal-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(29, 118, 113, 0.5);
+    }
+
+    .btn-registrarse {
+      background-color: var(--color-purple);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(93, 74, 168, 0.3);
+    }
+
+    .btn-registrarse:hover {
+      background-color: var(--color-purple-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(93, 74, 168, 0.5);
+    }
+
+    /* Contenedor Principal */
+    .info-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 160px 2rem 5rem 2rem;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Encabezado */
+    .info-header {
+      margin-bottom: 4rem;
+    }
+
+    .info-title {
+      font-size: 2.5rem;
+      color: #1a1a1a;
+      margin: 0 0 1.5rem 0;
+      font-weight: 700;
+    }
+
+    .info-subtitle {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #2f3542;
+      max-width: 900px;
+      margin: 0 auto 0.8rem auto;
+    }
+
+    /* Grid de Fichas de Información */
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    /* Tarjetas tipo Ficha Oscura */
+    .info-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-card-border);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      color: #ffffff;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .info-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-accent-teal);
+      box-shadow: 0 12px 35px rgba(32, 178, 170, 0.25);
+    }
+
+    /* Cabecera de Ficha */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .card-header-icon {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(32, 178, 170, 0.45));
+    }
+
+    .card-header-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header-sub {
+      font-size: 0.9rem;
+      color: #a4b0be;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .card-header-main {
+      font-size: 1.55rem;
+      color: var(--color-accent-teal);
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px rgba(32, 178, 170, 0.3);
+    }
+
+    /* Listas de Detalles en Tarjetas 1 y 2 */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .card-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.65rem;
+    }
+
+    .card-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item-label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.92rem;
+      color: #d1d8e0;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .item-icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .item-value {
+      font-size: 0.95rem;
+      color: var(--color-accent-teal);
+      font-weight: 700;
+    }
+
+    /* Estado ONLINE Badge */
+    .status-badge {
+      background-color: #2ed573;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.8rem;
+      border-radius: 50px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 10px rgba(46, 213, 115, 0.5);
+      letter-spacing: 0.5px;
+    }
+
+    /* Características Sub-Grid en Tarjeta 3 */
+    .features-subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .feature-subitem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .feature-subitem.full-width {
+      grid-column: span 2;
+      justify-self: center;
+      margin-top: 0.5rem;
+    }
+
+    .feature-subitem-icon {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 0 6px rgba(32, 178, 170, 0.35));
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .feature-subitem:hover .feature-subitem-icon {
+      transform: scale(1.15) translateY(-2px);
+    }
+
+    .feature-subitem-label {
+      font-size: 0.82rem;
+      color: #ffffff;
+      font-weight: 700;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Footer Personalizado (Coincide con captura) */
+    .footer-custom {
+      background-color: #0b0b0d;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 4rem 4rem;
+      box-sizing: border-box;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      gap: 2rem;
+    }
+
+    .footer-text {
+      color: #747d8c;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      text-align: left;
+    }
+
+    .footer-text p {
+      margin: 0.4rem 0;
+    }
+
+    .footer-brand {
+      font-family: 'Comforter', cursive;
+      font-size: 4.5rem;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Responsividad */
+    @media (max-width: 1100px) {
+      .navbar-fixed {
+        padding: 1.2rem 2rem;
+      }
+      .navbar-fixed.scrolled {
+        padding: 0.7rem 2rem;
+      }
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      .footer-text {
+        text-align: center;
+      }
+      .info-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-fixed {
+        padding: 0.8rem 1rem;
+      }
+      .navbar-fixed.scrolled {
+        padding: 0.6rem 1rem;
+      }
+      .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-logo {
+        display: flex;
+        justify-content: center;
+      }
+      .nav-center {
+        width: 100%;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 0.2rem;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+      .nav-actions {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.2rem;
+      }
+      .btn-nav {
+        flex-grow: 1;
+        text-align: center;
+        padding: 0.5rem 1rem;
+      }
+      .info-container {
+        padding-top: 240px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .info-title {
+        font-size: 1.85rem;
+      }
+      .info-subtitle {
+        font-size: 1.05rem;
+      }
+      .footer-brand {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR FIJO (Igual que index.html) -->
+  <nav class="navbar-fixed">
+    <div class="navbar-container">
+      
+      <!-- Logo de Servidor -->
+      <a href="index.html" class="nav-logo">
+        <img src="./assets/icons/crystalIcons.png" alt="ObsidianRO Logo">
+      </a>
+      
+      <!-- Centro: Stats y Menú -->
+      <div class="nav-center">
+        <div class="nav-stats">
+          Online: <span class="stat-num stat-online">120</span> | 
+          Vending: <span class="stat-num stat-vending">30</span> | 
+          Peak: <span class="stat-num stat-peak">200</span>
+        </div>
+        <div class="nav-links">
+          <a href="descarga.html">Descargas</a>
+          <a href="staff.html">Staff</a>
+          <a href="informacion.html">Informacion</a>
+          <a href="donaciones.html">Donaciones</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="wiki.html">Wiki</a>
+        </div>
+      </div>
+      
+      <!-- Acciones de Acceso -->
+      <div class="nav-actions">
+        <a href="login.html" class="btn-nav btn-acceder">Acceder</a>
+        <a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a>
+      </div>
+      
+    </div>
+  </nav>
+
+  <!-- CONTENEDOR PRINCIPAL DE INFORMACIÓN -->
+  <main class="info-container">
+    
+    <!-- Encabezado de la página -->
+    <div class="info-header">
+      <h1 class="info-title">Información</h1>
+      <p class="info-subtitle">
+        Obsidian RO es un servidor privado de Ragnarok Online Pre-Renewal creado para brindar una experiencia única, estable y desafiante.
+      </p>
+      <p class="info-subtitle">
+        Trabajamos constantemente para ofrecer contenido de calidad y mantener una comunidad sana y en crecimiento.
+      </p>
+    </div>
+    
+    <!-- Grid de Fichas de Servidor -->
+    <section class="info-cards-grid">
+      
+      <!-- Ficha 1: Rates del Servidor -->
+      <article class="info-card">
+        <div class="card-header">
+          <img src="./assets/icons/ratesIcon.png" alt="Rates Icon" class="card-header-icon">
+          <div class="card-header-text">
+            <h2 class="card-header-sub">Rates del</h2>
+            <h3 class="card-header-main">Servidor</h3>
+          </div>
+        </div>
+        
+        <div class="card-list">
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/bLvlMaxIcon.png" alt="Icon" class="item-icon">
+              Max Base Lvl
+            </div>
+            <span class="item-value">255</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/jLvlMaxIcon.png" alt="Icon" class="item-icon">
+              Max Job Lvl
+            </div>
+            <span class="item-value">120</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/expIcon.png" alt="Icon" class="item-icon">
+              Exp Base
+            </div>
+            <span class="item-value">1k</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/expJobIcon.png" alt="Icon" class="item-icon">
+              Exp Job
+            </div>
+            <span class="item-value">1k</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/dropNormalIcon.png" alt="Icon" class="item-icon">
+              Drop Normal
+            </div>
+            <span class="item-value">1k</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/dropMvpIcon.png" alt="Icon" class="item-icon">
+              Drop Mvp / Mini
+            </div>
+            <span class="item-value">1k</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/dropCardIcon.png" alt="Icon" class="item-icon">
+              Drop Cartas
+            </div>
+            <span class="item-value">500x</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/dropEquipIcon.png" alt="Icon" class="item-icon">
+              Drop Equipamiento
+            </div>
+            <span class="item-value">1k</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Ficha 2: Información del Servidor -->
+      <article class="info-card">
+        <div class="card-header">
+          <img src="./assets/icons/infoServerIcon.png" alt="Info Icon" class="card-header-icon">
+          <div class="card-header-text">
+            <h2 class="card-header-sub">Información del</h2>
+            <h3 class="card-header-main">Servidor</h3>
+          </div>
+        </div>
+        
+        <div class="card-list">
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/versionServerIcon.png" alt="Icon" class="item-icon">
+              Versión
+            </div>
+            <span class="item-value">Pre-Renewal</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/episodioIcon.png" alt="Icon" class="item-icon">
+              Episodio
+            </div>
+            <span class="item-value">13.3+</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/classesIcon.png" alt="Icon" class="item-icon">
+              Clases
+            </div>
+            <span class="item-value">2° Transcendent</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/estadoIcon.png" alt="Icon" class="item-icon">
+              Estado
+            </div>
+            <span class="status-badge">ONLINE</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/inicioIcon.png" alt="Icon" class="item-icon">
+              Apertura
+            </div>
+            <span class="item-value">30/06/2026</span>
+          </div>
+          <div class="card-item">
+            <div class="item-label">
+              <img src="./assets/icons/ubicacionIcon.png" alt="Icon" class="item-icon">
+              Ubicación
+            </div>
+            <span class="item-value">BRASIL</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Ficha 3: Características del Servidor -->
+      <article class="info-card">
+        <div class="card-header">
+          <img src="./assets/icons/caracteristicasIcon.png" alt="Features Icon" class="card-header-icon">
+          <div class="card-header-text">
+            <h2 class="card-header-sub">Características del</h2>
+            <h3 class="card-header-main">Servidor</h3>
+          </div>
+        </div>
+        
+        <!-- Grid de iconos de características -->
+        <div class="features-subgrid">
+          
+          <!-- PvP Balanceado -->
+          <div class="feature-subitem">
+            <img src="./assets/icons/pvpIcon.png" alt="PvP Icon" class="feature-subitem-icon">
+            <span class="feature-subitem-label">PVP<br>Balanceado</span>
+          </div>
+          
+          <!-- WoE Activa -->
+          <div class="feature-subitem">
+            <img src="./assets/icons/woeIcon.png" alt="WoE Icon" class="feature-subitem-icon">
+            <span class="feature-subitem-label">WOE<br>Activa</span>
+          </div>
+          
+          <!-- Eventos Automáticos -->
+          <div class="feature-subitem">
+            <img src="./assets/icons/eventIcon.png" alt="Events Icon" class="feature-subitem-icon">
+            <span class="feature-subitem-label">Eventos<br>Automáticos</span>
+          </div>
+          
+          <!-- Mercado Activo -->
+          <div class="feature-subitem">
+            <img src="./assets/icons/mercadoIcon.png" alt="Market Icon" class="feature-subitem-icon">
+            <span class="feature-subitem-label">Mercado<br>Activo</span>
+          </div>
+          
+          <!-- Comunidad Activa (Centrado al final) -->
+          <div class="feature-subitem full-width">
+            <img src="./assets/icons/comunidadIcon.png" alt="Community Icon" class="feature-subitem-icon">
+            <span class="feature-subitem-label">Comunidad<br>Activa</span>
+          </div>
+          
+        </div>
+      </article>
+      
+    </section>
+    
+  </main>
+
+  <!-- PIE DE PÁGINA (FOOTER - Coincide con descarga.html y staff.html) -->
+  <footer class="footer-custom">
+    <div class="footer-container">
+      
+      <!-- Textos legales y copyright (Izquierda) -->
+      <div class="footer-text">
+        <p>Todas las marcas registradas, logotipos e imágenes relacionadas con Ragnarok Online pertenecen a sus respectivos propietarios.</p>
+        <p>Obsidian RO es un proyecto independiente sin afiliación oficial con Gravity Co., Ltd.</p>
+        <p>© 2026 Obsidian RO. Todos los derechos reservados.</p>
+      </div>
+      
+      <!-- Logo cursive (Derecha) -->
+      <div class="footer-brand">
+        ObsidianRo
+      </div>
+      
+    </div>
+  </footer>
+
+  <!-- LÓGICA JAVASCRIPT -->
+  <script>
+    // Cambio de estilo del Navbar al scroll (Mismo efecto que index.html)
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar-fixed');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+</body>
+</html>
