@@ -72,8 +72,6 @@ h2 {
     justify-content: center;
 }
 
-
-
 .hero-desc {
     font-weight: 300;
     font-size: 1.2rem;
@@ -291,6 +289,47 @@ h2 {
     background-color: var(--color-teal-hover);
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(29, 118, 113, 0.55);
+}
+
+/*SECTION*/
+.section-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+}
+
+.section-gold-line {
+    height: 2px;
+    flex-grow: 1;
+    /* max-width: 150px; */
+    background-color: var(--color-gold);
+}
+
+.section-title {
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: #1a1a1a;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.section-title span {
+    font-style: italic;
+    font-weight: 700;
+    color: #000;
+}
+
+.container-info {
+    background-color: #FFF;
+    justify-content: center;
+}
+
+.container-info img {
+    max-width: 15rem;
 }
 
 /* Card */

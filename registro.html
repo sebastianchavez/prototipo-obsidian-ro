@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - ObsidianRo</title>
+    <link rel="stylesheet" href="./assets/styles/nova.css">
+    <style>
+        :root {
+            --color-gold: #d4af37;
+            --color-purple: #5d4aa8;
+            --color-purple-hover: #7b66c9;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #2d3436;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .registro-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 160px 1rem 4rem 1rem;
+        }
+
+        .registro-card {
+            background: #f1f2f6;
+            border-radius: 10px;
+            padding: 2.5rem 3rem;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeUp 0.8s ease-in-out;
+        }
+
+        .registro-card h2 {
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: #636e72;
+            margin-bottom: 1.8rem;
+        }
+
+        .registro-card h2 span {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-style: italic;
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2d3436;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            background: #ffffff;
+            border: 1px solid #dfe6e9;
+            border-radius: 6px;
+            color: #2d3436;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #b2bec3;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-purple);
+            box-shadow: 0 0 0 3px rgba(93, 74, 168, 0.12);
+        }
+
+        .form-group .error-msg {
+            display: none;
+            font-size: 0.78rem;
+            color: #e74c3c;
+            margin-top: 0.3rem;
+        }
+
+        .form-group input.invalid {
+            border-color: #e74c3c;
+        }
+
+        .form-group input.invalid + .error-msg {
+            display: block;
+        }
+
+        .btn-registrarse {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--color-purple);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin-top: 0.5rem;
+        }
+
+        .btn-registrarse:hover {
+            background: var(--color-purple-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(93, 74, 168, 0.35);
+        }
+
+        .btn-registrarse:active {
+            transform: translateY(0);
+        }
+
+        .footer-registro {
+            width: 100%;
+            background: #09090b;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .footer-registro .footer-text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+        }
+
+        .footer-registro .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .registro-page {
+                padding-top: 200px;
+            }
+
+            .registro-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-registro {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR FIJO -->
+    <nav class="navbar-fixed">
+        <div class="navbar-container">
+            <a href="index.html" class="nav-logo">
+                <img src="./assets/icons/logo.png" alt="ObsidianRO Logo">
+            </a>
+            <div class="nav-center">
+                <div class="nav-stats">
+                    ONLINE <span class="stat-num text-tertiary">120</span> | VENDING <span class="stat-num text-tertiary">30</span> | PEAK <span class="stat-num text-tertiary">200</span>
+                </div>
+                <div class="nav-links">
+                    <a href="descarga.html">Descargas</a>
+                    <a href="staff.html">Staff</a>
+                    <a href="informacion.html">Informacion</a>
+                    <a href="donaciones.html">Donaciones</a>
+                    <a href="ranking.html">Ranking</a>
+                    <a href="wiki.html">Wiki</a>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-nav btn-acceder">Acceder</a>
+                <a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="registro-page">
+        <div class="registro-card">
+            <h2>Registrate en <span>Obsidian Ro</span></h2>
+
+            <form id="registroForm">
+                <div class="form-group">
+                    <label for="usuario">Nombre de usuario</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordConfirm">Repetir contraseña</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Repite tu contraseña" required>
+                    <span class="error-msg">Las contraseñas no coinciden</span>
+                </div>
+
+                <button type="submit" class="btn-registrarse">Registrate</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-registro">
+        <div class="footer-text">
+            <p>Todas las marcas registradas, logotipos e imágenes relacionadas con Ragnarok Online pertenecen a sus
+                respectivos propietarios.</p>
+            <p>Obsidian RO es un proyecto independiente sin afiliación oficial con Gravity Co., Ltd.</p>
+            <p>&copy; 2026 Obsidian RO. Todos los derechos reservados.</p>
+        </div>
+        <div class="footer-logo">ObsidianRo</div>
+    </footer>
+
+    <script>
+        const password = document.getElementById('password');
+        const passwordConfirm = document.getElementById('passwordConfirm');
+
+        passwordConfirm.addEventListener('input', function () {
+            if (this.value !== password.value) {
+                this.classList.add('invalid');
+            } else {
+                this.classList.remove('invalid');
+            }
+        });
+
+        document.getElementById('registroForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (password.value !== passwordConfirm.value) {
+                passwordConfirm.classList.add('invalid');
+                return;
+            }
+
+            const btn = this.querySelector('.btn-registrarse');
+            const originalText = btn.innerText;
+            btn.innerText = 'Registrando...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                alert('Registro exitoso. Revisa tu email para confirmar tu cuenta.');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

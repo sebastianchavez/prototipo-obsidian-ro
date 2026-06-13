@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking - ObsidianRo</title>
+    <link rel="stylesheet" href="./assets/styles/nova.css">
+    <style>
+        :root {
+            --color-gold: #d4af37;
+            --color-gold-glow: rgba(212, 175, 55, 0.3);
+            --color-purple: #5d4aa8;
+            --color-purple-hover: #7b66c9;
+            --color-teal: #1d7671;
+            --color-teal-hover: #259e97;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #2d3436;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ranking-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 160px;
+            padding-bottom: 4rem;
+        }
+
+        .ranking-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeUp 0.8s ease-in-out;
+        }
+
+        .ranking-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d3436;
+        }
+
+        .ranking-header p {
+            font-size: 1.05rem;
+            color: #636e72;
+            font-style: italic;
+        }
+
+        .ranking-table-wrapper {
+            width: 100%;
+            max-width: 850px;
+            padding: 0 1rem;
+            animation: fadeUp 1s ease-in-out 0.2s both;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .ranking-table thead {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .ranking-table thead th {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            white-space: nowrap;
+        }
+
+        .ranking-table tbody tr {
+            transition: background 0.2s ease;
+            animation: fadeIn 0.5s ease-in-out both;
+        }
+
+        .ranking-table tbody tr:nth-child(odd) {
+            background: #f8f9fa;
+        }
+
+        .ranking-table tbody tr:nth-child(even) {
+            background: #ffffff;
+        }
+
+        .ranking-table tbody tr:hover {
+            background: rgba(93, 74, 168, 0.08);
+        }
+
+        .ranking-table tbody td {
+            padding: 0.85rem 1.2rem;
+            font-size: 0.9rem;
+            color: #2d3436;
+            border-bottom: 1px solid #f1f2f6;
+        }
+
+        .ranking-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pos-1 { color: #d4af37; font-weight: 700; }
+        .pos-2 { color: #95a5a6; font-weight: 700; }
+        .pos-3 { color: #cd7f32; font-weight: 700; }
+
+        .guild-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+
+        .guild-na {
+            color: #b2bec3;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        /* Stagger animation for rows */
+        .ranking-table tbody tr:nth-child(1) { animation-delay: 0.3s; }
+        .ranking-table tbody tr:nth-child(2) { animation-delay: 0.35s; }
+        .ranking-table tbody tr:nth-child(3) { animation-delay: 0.4s; }
+        .ranking-table tbody tr:nth-child(4) { animation-delay: 0.45s; }
+        .ranking-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+        .ranking-table tbody tr:nth-child(6) { animation-delay: 0.55s; }
+        .ranking-table tbody tr:nth-child(7) { animation-delay: 0.6s; }
+        .ranking-table tbody tr:nth-child(8) { animation-delay: 0.65s; }
+        .ranking-table tbody tr:nth-child(9) { animation-delay: 0.7s; }
+        .ranking-table tbody tr:nth-child(10) { animation-delay: 0.75s; }
+
+        .footer-ranking {
+            width: 100%;
+            background: #09090b;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .footer-ranking .footer-text {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+        }
+
+        .footer-ranking .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .ranking-page {
+                padding-top: 200px;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .ranking-header h1 {
+                font-size: 2rem;
+            }
+
+            .ranking-table-wrapper {
+                overflow-x: auto;
+            }
+
+            .ranking-table thead th,
+            .ranking-table tbody td {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .footer-ranking {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR FIJO -->
+    <nav class="navbar-fixed">
+        <div class="navbar-container">
+            <a href="index.html" class="nav-logo">
+                <img src="./assets/icons/logo.png" alt="ObsidianRO Logo">
+            </a>
+            <div class="nav-center">
+                <div class="nav-stats">
+                    ONLINE <span class="stat-num text-tertiary">120</span> | VENDING <span class="stat-num text-tertiary">30</span> | PEAK <span class="stat-num text-tertiary">200</span>
+                </div>
+                <div class="nav-links">
+                    <a href="descarga.html">Descargas</a>
+                    <a href="staff.html">Staff</a>
+                    <a href="informacion.html">Informacion</a>
+                    <a href="donaciones.html">Donaciones</a>
+                    <a href="ranking.html">Ranking</a>
+                    <a href="wiki.html">Wiki</a>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-nav btn-acceder">Acceder</a>
+                <a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="ranking-page">
+        <div class="ranking-header">
+            <h1>Ranking</h1>
+            <p>Información de ranking que se selecciona</p>
+        </div>
+
+        <div class="ranking-table-wrapper">
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Personaje</th>
+                        <th>Job</th>
+                        <th>Lvl</th>
+                        <th>Victorias</th>
+                        <th>Derrotas</th>
+                        <th>Guild</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="pos-1">1</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><img src="./assets/icons/logo.png" alt="Guild" class="guild-icon"></td>
+                    </tr>
+                    <tr>
+                        <td class="pos-2">2</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><span class="guild-na">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <td class="pos-3">3</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><img src="./assets/icons/logo.png" alt="Guild" class="guild-icon"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><span class="guild-na">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><img src="./assets/icons/logo.png" alt="Guild" class="guild-icon"></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><span class="guild-na">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><img src="./assets/icons/logo.png" alt="Guild" class="guild-icon"></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><span class="guild-na">N/A</span></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><img src="./assets/icons/logo.png" alt="Guild" class="guild-icon"></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Seba</td>
+                        <td>High Priest</td>
+                        <td>255/120</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td><span class="guild-na">N/A</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-ranking">
+        <div class="footer-text">
+            <p>Todas las marcas registradas, logotipos e imágenes relacionadas con Ragnarok Online pertenecen a sus
+                respectivos propietarios.</p>
+            <p>Obsidian RO es un proyecto independiente sin afiliación oficial con Gravity Co., Ltd.</p>
+            <p>&copy; 2026 Obsidian RO. Todos los derechos reservados.</p>
+        </div>
+        <div class="footer-logo">ObsidianRo</div>
+    </footer>
+</body>
+</html>

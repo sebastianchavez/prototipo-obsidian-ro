@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki - Obsidian RO</title>
+    <link rel="stylesheet" href="./assets/styles/nova.css">
+    <style>
+        :root {
+            --color-gold: #d4af37;
+            --color-purple: #5d4aa8;
+            --wiki-bg: #f6f6f6;
+            --wiki-sidebar-bg: #f6f6f6;
+            --wiki-content-bg: #ffffff;
+            --wiki-border: #a7d7f9;
+            --wiki-link: #0645ad;
+            --wiki-link-hover: #0b0080;
+            --wiki-tab-bg: #ffffff;
+            --wiki-tab-inactive: #cee0f2;
+            --wiki-text: #202122;
+            --wiki-text-light: #54595d;
+            --wiki-header-border: #a2a9b1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--wiki-bg);
+            color: var(--wiki-text);
+            font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Top bar */
+        .wiki-topbar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 6px 20px;
+            border-bottom: 1px solid #c8ccd1;
+            background: var(--wiki-content-bg);
+        }
+
+        .wiki-topbar a {
+            color: var(--wiki-link);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .wiki-topbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Layout */
+        .wiki-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .wiki-sidebar {
+            width: 180px;
+            min-width: 180px;
+            background: var(--wiki-sidebar-bg);
+            padding: 15px 10px;
+            border-right: 1px solid #c8ccd1;
+        }
+
+        .wiki-logo {
+            display: block;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .wiki-logo img {
+            max-width: 140px;
+            height: auto;
+        }
+
+        .wiki-sidebar-nav h4 {
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: var(--wiki-text-light);
+            margin: 15px 0 5px 0;
+            padding: 0 5px;
+            border-bottom: 1px solid #c8ccd1;
+            padding-bottom: 4px;
+        }
+
+        .wiki-sidebar-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wiki-sidebar-nav ul li {
+            margin: 0;
+        }
+
+        .wiki-sidebar-nav ul li a {
+            display: block;
+            padding: 3px 8px;
+            color: var(--wiki-link);
+            text-decoration: none;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .wiki-sidebar-nav ul li a:hover {
+            text-decoration: underline;
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        /* Main content */
+        .wiki-main {
+            flex: 1;
+            background: var(--wiki-content-bg);
+            border-left: 1px solid #a7d7f9;
+        }
+
+        /* Tabs */
+        .wiki-tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            border-bottom: 1px solid var(--wiki-border);
+            background: var(--wiki-content-bg);
+        }
+
+        .wiki-tabs-left {
+            display: flex;
+            gap: 0;
+        }
+
+        .wiki-tabs-left a {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: var(--wiki-link);
+            font-size: 0.9rem;
+            border: 1px solid var(--wiki-border);
+            border-bottom: none;
+            border-radius: 2px 2px 0 0;
+            margin-bottom: -1px;
+            background: var(--wiki-tab-inactive);
+        }
+
+        .wiki-tabs-left a.active {
+            background: var(--wiki-tab-bg);
+            border-bottom: 1px solid var(--wiki-tab-bg);
+            font-weight: normal;
+        }
+
+        .wiki-tabs-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wiki-tabs-right a {
+            color: var(--wiki-link);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .wiki-tabs-right a:hover {
+            text-decoration: underline;
+        }
+
+        .wiki-search {
+            display: flex;
+            align-items: center;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .wiki-search input {
+            padding: 4px 8px;
+            border: none;
+            outline: none;
+            font-size: 0.85rem;
+            width: 200px;
+        }
+
+        .wiki-search button {
+            background: #f8f9fa;
+            border: none;
+            border-left: 1px solid #a2a9b1;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        /* Content area */
+        .wiki-content {
+            padding: 20px 30px 40px 30px;
+            max-width: 1100px;
+        }
+
+        /* Banner */
+        .wiki-banner {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 20px 0;
+        }
+
+        .wiki-banner img {
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Quick links bar */
+        .wiki-quick-links {
+            text-align: center;
+            padding: 10px 20px;
+            border: 1px solid var(--wiki-border);
+            border-radius: 2px;
+            margin-bottom: 25px;
+            background: #f8fbfe;
+            font-size: 0.95rem;
+        }
+
+        .wiki-quick-links a {
+            color: var(--wiki-link);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .wiki-quick-links a:hover {
+            text-decoration: underline;
+        }
+
+        .wiki-quick-links a.highlight {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .wiki-quick-links .sep {
+            color: var(--wiki-text-light);
+            margin: 0 3px;
+        }
+
+        /* Welcome section */
+        .wiki-welcome {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            padding: 20px 0;
+        }
+
+        .wiki-welcome-left {
+            flex: 2;
+        }
+
+        .wiki-welcome-left h2 {
+            font-size: 1.5rem;
+            margin: 0 0 12px 0;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .wiki-welcome-left p {
+            text-align: center;
+            color: var(--wiki-text-light);
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+
+        .wiki-welcome-right {
+            flex: 1;
+            border-left: 1px solid #c8ccd1;
+            padding-left: 20px;
+        }
+
+        .wiki-welcome-right ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wiki-welcome-right ul li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--wiki-text-light);
+        }
+
+        .wiki-welcome-right ul li::before {
+            content: "✦ ";
+            color: var(--color-gold);
+        }
+
+        /* Category icons grid */
+        .wiki-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .wiki-category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 5px;
+            text-decoration: none;
+            color: var(--wiki-text);
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .wiki-category-item:hover {
+            background: #eaf3fc;
+        }
+
+        .wiki-category-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+
+        .wiki-category-item span {
+            font-size: 0.78rem;
+            color: var(--wiki-link);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* Intro banner */
+        .wiki-intro-banner {
+            text-align: center;
+            padding: 12px 20px;
+            border-top: 1px solid #c8ccd1;
+            border-bottom: 1px solid #c8ccd1;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: var(--wiki-text-light);
+        }
+
+        .wiki-intro-banner a {
+            color: var(--wiki-link);
+            text-decoration: none;
+        }
+
+        .wiki-intro-banner a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section cards */
+        .wiki-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .wiki-section {
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            border: 1px solid #eaecf0;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+
+        .wiki-section-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wiki-section-icon img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .wiki-section-body h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .wiki-section-body p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--wiki-text-light);
+            line-height: 1.7;
+        }
+
+        .wiki-section-body p a {
+            color: var(--wiki-link);
+            text-decoration: none;
+        }
+
+        .wiki-section-body p a:hover {
+            text-decoration: underline;
+        }
+
+        .wiki-section-body p .sep {
+            color: #a2a9b1;
+            margin: 0 2px;
+        }
+
+        .wiki-section-body p a.highlight {
+            color: #c62828;
+        }
+
+        /* Footer */
+        .wiki-footer {
+            border-top: 1px solid #a2a9b1;
+            padding: 15px 30px;
+            font-size: 0.8rem;
+            color: var(--wiki-text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--wiki-content-bg);
+        }
+
+        .wiki-footer a {
+            color: var(--wiki-link);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .wiki-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .wiki-footer-powered {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            color: #72777d;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .wiki-layout {
+                flex-direction: column;
+            }
+
+            .wiki-sidebar {
+                width: 100%;
+                min-width: auto;
+                border-right: none;
+                border-bottom: 1px solid #c8ccd1;
+                display: flex;
+                flex-wrap: wrap;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .wiki-logo {
+                margin-bottom: 0;
+            }
+
+            .wiki-sidebar-nav {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .wiki-sidebar-nav h4 {
+                margin: 0;
+                border-bottom: none;
+            }
+
+            .wiki-sidebar-nav ul {
+                display: flex;
+                gap: 5px;
+            }
+
+            .wiki-welcome {
+                flex-direction: column;
+            }
+
+            .wiki-welcome-right {
+                border-left: none;
+                border-top: 1px solid #c8ccd1;
+                padding-left: 0;
+                padding-top: 15px;
+            }
+
+            .wiki-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .wiki-categories {
+                grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .wiki-tabs {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px;
+            }
+
+            .wiki-content {
+                padding: 15px;
+            }
+
+            .wiki-footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top bar -->
+    <div class="wiki-topbar">
+        <a href="login.html">Acceder</a>
+    </div>
+
+    <div class="wiki-layout">
+        <!-- Sidebar -->
+        <aside class="wiki-sidebar">
+            <a href="wiki.html" class="wiki-logo">
+                <img src="./assets/icons/logo.png" alt="Obsidian RO Wiki">
+            </a>
+            <nav class="wiki-sidebar-nav">
+                <h4>Principal</h4>
+                <ul>
+                    <li><a href="wiki.html">Página principal</a></li>
+                    <li><a href="#">Cambios recientes</a></li>
+                    <li><a href="#">Página aleatoria</a></li>
+                    <li><a href="#">Ayuda sobre MediaWiki</a></li>
+                </ul>
+                <h4>Herramientas</h4>
+                <ul>
+                    <li><a href="#">Lo que enlaza aquí</a></li>
+                    <li><a href="#">Cambios relacionados</a></li>
+                    <li><a href="#">Páginas especiales</a></li>
+                    <li><a href="#">Versión para imprimir</a></li>
+                    <li><a href="#">Enlace permanente</a></li>
+                    <li><a href="#">Información de la página</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="wiki-main">
+            <!-- Tabs -->
+            <div class="wiki-tabs">
+                <div class="wiki-tabs-left">
+                    <a href="#" class="active">Página principal</a>
+                    <a href="#">Discusión</a>
+                </div>
+                <div class="wiki-tabs-right">
+                    <a href="#">Leer</a>
+                    <a href="#">Ver código</a>
+                    <a href="#">Ver historial</a>
+                    <div class="wiki-search">
+                        <input type="text" placeholder="Buscar en Obsidian RO Wiki">
+                        <button>&#128269;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="wiki-content">
+                <!-- Banner -->
+                <div class="wiki-banner">
+                    <img src="./assets/icons/logo.png" alt="Obsidian RO">
+                </div>
+
+                <!-- Quick links -->
+                <div class="wiki-quick-links">
+                    <a href="index.html">Sitio web</a>
+                    <span class="sep">&#8226;</span>
+                    <a href="descarga.html" class="highlight">Descarga el juego</a>
+                    <span class="sep">&#8226;</span>
+                    <a href="registro.html">Crea una cuenta</a>
+                    <span class="sep">&#8226;</span>
+                    <a href="#">Discord</a>
+                </div>
+
+                <!-- Welcome -->
+                <div class="wiki-welcome">
+                    <div class="wiki-welcome-left">
+                        <h2>Bienvenido a la Wiki de Obsidian RO</h2>
+                        <p>Aquí encontrarás información relevante acerca de nuestro servidor y de Ragnarok Online en general.</p>
+                        <p>No dudes en contribuir sugiriendo nuevos artículos o ampliando los existentes.</p>
+                    </div>
+                    <div class="wiki-welcome-right">
+                        <ul>
+                            <li>Proyecto desarrollado con una experiencia clásica y personalizada.</li>
+                            <li>Pre-Renewal - Episodio 13.3 El Dicastes.</li>
+                            <li>¡Únete y prueba un sin fin de posibilidades!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category icons -->
+                <div class="wiki-categories">
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/infoServerIcon.png" alt="Destacado">
+                        <span>Destacado</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/woeIcon.png" alt="Reglas">
+                        <span>Reglas</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/infoServerIcon.png" alt="FAQ">
+                        <span>FAQ</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/classesIcon.png" alt="Guía de Clases">
+                        <span>Guía de Clases</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/eventIcon.png" alt="Eventos">
+                        <span>Eventos</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/magicianIcon.png" alt="Combate Elemental">
+                        <span>Combate Elemental</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/mercadoIcon.png" alt="Listado de Equipo">
+                        <span>Listado de Equipo</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/crystalIcons.png" alt="Costumes">
+                        <span>Costumes</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/woeInfoIcon.png" alt="Instancias">
+                        <span>Instancias</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/anticheatIcon.png" alt="Dungeons Custom">
+                        <span>Dungeons Custom</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/resistenciaIcon.png" alt="Solución de Problemas">
+                        <span>Solución de Problemas</span>
+                    </a>
+                    <a href="#" class="wiki-category-item">
+                        <img src="./assets/icons/woeIcons.png" alt="Apelación de Ban">
+                        <span>Apelación de Ban</span>
+                    </a>
+                </div>
+
+                <!-- Intro banner -->
+                <div class="wiki-intro-banner">
+                    Eres nuevo en el juego? Revisa la <a href="#">Introducción a Ragnarok Online</a> para tener una idea de cómo funciona!<br>
+                    Vienes de un servidor con un estilo de juego clásico? Revisa los desafíos <a href="#">No Custom 99/70</a> que nuestro servidor te ofrece!
+                </div>
+
+                <!-- Sections -->
+                <div class="wiki-sections">
+                    <div class="wiki-section">
+                        <div class="wiki-section-icon">
+                            <img src="./assets/icons/logo.png" alt="ObsidianRO">
+                        </div>
+                        <div class="wiki-section-body">
+                            <h4>Obsidian-RO</h4>
+                            <p>
+                                <a href="#">Empezando</a> <span class="sep">~</span>
+                                <a href="#">Guía Básica Main Office</a> <span class="sep">~</span>
+                                <a href="#">Comandos</a> <span class="sep">~</span>
+                                <a href="#">Misiones de Leveo 120-200</a> <span class="sep">~</span>
+                                <a href="#">Misiones Diarias</a> <span class="sep">~</span>
+                                <a href="#">Daily Reward</a> <span class="sep">~</span>
+                                <a href="#">Guild Pack</a> <span class="sep">~</span>
+                                <a href="#">Reconocimientos</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="wiki-section">
+                        <div class="wiki-section-icon">
+                            <img src="./assets/icons/mercadoIcon.png" alt="Equipo Custom">
+                        </div>
+                        <div class="wiki-section-body">
+                            <h4>Equipo Custom</h4>
+                            <p>
+                                <a href="#">Combos Elementales Quest</a> <span class="sep">~</span>
+                                <a href="#">Headgears</a> <span class="sep">~</span>
+                                <a href="#">Armas</a> <span class="sep">~</span>
+                                <a href="#">Escudos</a> <span class="sep">~</span>
+                                <a href="#">Armaduras</a> <span class="sep">~</span>
+                                <a href="#">Garments</a> <span class="sep">~</span>
+                                <a href="#">Shoes</a> <span class="sep">~</span>
+                                <a href="#">Accesorios</a> <span class="sep">~</span>
+                                <a href="#">Municiones Elementales</a> <span class="sep">~</span>
+                                <a href="#">Super Novice Gear</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="wiki-section">
+                        <div class="wiki-section-icon">
+                            <img src="./assets/icons/pvpIcon.png" alt="PvP">
+                        </div>
+                        <div class="wiki-section-body">
+                            <h4>Player vs Player</h4>
+                            <p>
+                                <a href="#">Ranking &amp; Rewards</a> <span class="sep">~</span>
+                                <a href="#">War of Emperium</a> <span class="sep">~</span>
+                                <a href="#">War of Emperium 2.0</a> <span class="sep">~</span>
+                                <a href="#">Battlegrounds</a> <span class="sep">~</span>
+                                <a href="#" class="highlight">King of Emperium</a> <span class="sep">~</span>
+                                <a href="#" class="highlight">PvP</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="wiki-section">
+                        <div class="wiki-section-icon">
+                            <img src="./assets/icons/crystalIcons.png" alt="Random Options">
+                        </div>
+                        <div class="wiki-section-body">
+                            <h4>Random Options / Encantamientos</h4>
+                            <p>
+                                <a href="#">Encantamiento de Armas</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="wiki-section">
+                        <div class="wiki-section-icon">
+                            <img src="./assets/icons/woeInfoIcon.png" alt="Mecánicas">
+                        </div>
+                        <div class="wiki-section-body">
+                            <h4>Mecánicas</h4>
+                            <p>
+                                <a href="#">Refine Seguro</a> <span class="sep">~</span>
+                                <a href="#">No Custom 99/70</a> <span class="sep">~</span>
+                                <a href="#">Monedas</a> <span class="sep">~</span>
+                                <a href="#">Gachapon</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="wiki-section">
+                        <div class="wiki-section-icon">
+                            <img src="./assets/icons/expJobIcon.png" alt="Guías">
+                        </div>
+                        <div class="wiki-section-body">
+                            <h4>Guías</h4>
+                            <p>
+                                <a href="#">Spirits</a> <span class="sep">~</span>
+                                <a href="#">Builds</a> <span class="sep">~</span>
+                                <a href="#">Notas de Colores</a> <span class="sep">~</span>
+                                <a href="#">Esencias</a> <span class="sep">~</span>
+                                <a href="#">Piedras Quest</a> <span class="sep">~</span>
+                                <a href="#">Piedras Quest Tipo Vip</a> <span class="sep">~</span>
+                                <a href="#">Cartas</a> <span class="sep">~</span>
+                                <a href="#">Channels</a> <span class="sep">~</span>
+                                <a href="#">MVP'S Respawn</a> <span class="sep">~</span>
+                                <a href="#">Otras</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="wiki-footer">
+                <div>
+                    Esta página se editó por última vez el 12 jun 2026 a las 00:00.
+                    <br>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Acerca de Obsidian RO</a>
+                    <a href="descarga.html">Descargas</a>
+                </div>
+                <div class="wiki-footer-powered">
+                    <span>Powered by</span>
+                    <strong>MediaWiki</strong>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

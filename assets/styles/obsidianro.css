@@ -1,0 +1,107 @@
+  /* Mago con contenedor resplandeciente */
+  .hero-mage-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .hero-mage-card {
+    border: none;
+    box-shadow: none;
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: transparent;
+    /* max-width: 440px; */
+    width: 100%;
+  }
+
+  .hero-mage-card::after {
+    display: none;
+  }
+
+  .hero-mage-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .hero-mage-card:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  /* Sección ¿Por qué ObsidianRO? */
+  .why-section {
+    background-color: #ffffff;
+    color: #2f3542;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .why-container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .why-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .why-gold-line {
+    height: 2px;
+    flex-grow: 1;
+    /* max-width: 150px; */
+    background-color: var(--color-gold);
+  }
+
+  .why-title {
+    font-weight: 700;
+    font-size: 2.6rem;
+    color: #1a1a1a;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .why-title span {
+    font-style: italic;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .why-paragraph {
+    font-size: 1.30rem;
+    line-height: 1.9;
+    margin-bottom: 2.2rem;
+    color: #4f5664;
+    font-weight: 400;
+  }
+
+  .why-paragraph strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
+
+    .events {
+    background-color: #ffffff;
+    color: #2f3542;
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .events-container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
