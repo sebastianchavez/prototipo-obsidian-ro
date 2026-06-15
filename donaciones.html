@@ -6,6 +6,8 @@
     <title>Donaciones - ObsidianRo</title>
     <link rel="stylesheet" href="./assets/styles/nova.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Relief&family=Comforter&display=swap');
+
         :root {
             --color-gold: #d4af37;
             --color-gold-glow: rgba(212, 175, 55, 0.3);
@@ -18,7 +20,7 @@
         body {
             background-color: #ffffff;
             color: #2d3436;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Relief', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -151,13 +153,13 @@
         }
 
         .footer-donaciones {
-            width: 100%;
-            background: #09090b;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 2rem 4rem;
+            background: #0b0b0d;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 2.5rem 4rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 4rem;
             margin-top: auto;
         }
 
@@ -165,14 +167,15 @@
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.5);
             line-height: 1.8;
+            text-align: center;
         }
 
         .footer-donaciones .footer-logo {
             font-size: 2.5rem;
             font-weight: 700;
-            font-style: italic;
             color: #fff;
             letter-spacing: 1px;
+            font-family: 'Comforter', cursive;
         }
 
         @media (max-width: 768px) {
@@ -205,16 +208,18 @@
 </head>
 <body>
     <!-- NAVBAR FIJO -->
-    <nav class="navbar-fixed">
+    <nav class="navbar-fixed navbar-dark">
         <div class="navbar-container">
             <a href="index.html" class="nav-logo">
                 <img src="./assets/icons/logo.png" alt="ObsidianRO Logo">
             </a>
             <div class="nav-center">
                 <div class="nav-stats">
-                    ONLINE <span class="stat-num text-tertiary">120</span> | VENDING <span class="stat-num text-tertiary">30</span> | PEAK <span class="stat-num text-tertiary">200</span>
+                    Online: <span class="stat-num text-tertiary">120</span> |
+                    Vending: <span class="stat-num text-tertiary">30</span> |
+                    Peak: <span class="stat-num text-tertiary">200</span>
                 </div>
-                <div class="nav-links">
+                <div class="nav-links-desktop">
                     <a href="descarga.html">Descargas</a>
                     <a href="staff.html">Staff</a>
                     <a href="informacion.html">Informacion</a>
@@ -224,6 +229,25 @@
                 </div>
             </div>
             <div class="nav-actions">
+                <a href="login.html" class="btn-nav btn-acceder">Acceder</a>
+                <a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a>
+            </div>
+            <button class="nav-hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="nav-mobile-menu" id="mobileMenu">
+            <div class="nav-links">
+                <a href="descarga.html">Descargas</a>
+                <a href="staff.html">Staff</a>
+                <a href="informacion.html">Informacion</a>
+                <a href="donaciones.html">Donaciones</a>
+                <a href="ranking.html">Ranking</a>
+                <a href="wiki.html">Wiki</a>
+            </div>
+            <div class="nav-mobile-actions">
                 <a href="login.html" class="btn-nav btn-acceder">Acceder</a>
                 <a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a>
             </div>
@@ -275,6 +299,25 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.nav-hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            updateMobileMenuPosition();
+        }
+
+        function updateMobileMenuPosition() {
+            const navbar = document.querySelector('.navbar-fixed');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (navbar && mobileMenu) {
+                mobileMenu.style.top = navbar.offsetHeight + 'px';
+            }
+        }
+
+        window.addEventListener('scroll', updateMobileMenuPosition);
+        window.addEventListener('resize', updateMobileMenuPosition);
+
         document.getElementById('donationForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const btn = this.querySelector('.btn-donar');

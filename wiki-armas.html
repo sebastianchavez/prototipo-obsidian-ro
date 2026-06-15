@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armas - Obsidian RO Wiki</title>
+    <link rel="stylesheet" href="./assets/styles/nova.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Relief&family=Comforter&display=swap');
+        :root { --wiki-link: #0645ad; --wiki-border: #a7d7f9; --wiki-bg: #f6f6f6; --wiki-content-bg: #ffffff; --wiki-text: #202122; --wiki-text-light: #54595d; }
+        body, button, input { font-family: 'Comic Relief', sans-serif; }
+        body { background-color: var(--wiki-bg); color: var(--wiki-text); margin: 0; padding: 0; overflow-x: hidden; }
+        .wiki-layout { display: flex; min-height: calc(100vh - 80px); padding-top: 120px; }
+        .wiki-sidebar { width: 200px; min-width: 200px; background: var(--wiki-bg); border-right: 1px solid #c8ccd1; position: fixed; top: 120px; left: 0; bottom: 0; display: flex; flex-direction: column; }
+        .wiki-sidebar-nav { flex: 1; overflow-y: auto; padding: 15px 10px; }
+        .wiki-logo { display: block; margin-bottom: 20px; text-align: center; padding-bottom: 15px; border-bottom: 1px solid #c8ccd1; }
+        .wiki-logo img { max-width: 120px; height: auto; }
+        .wiki-sidebar-nav h4 { font-size: 0.85rem; font-weight: normal; color: var(--wiki-text-light); margin: 15px 0 5px 0; padding: 0 5px; border-bottom: 1px solid #c8ccd1; padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .wiki-sidebar-nav ul { list-style: none; margin: 0; padding: 0; }
+        .wiki-sidebar-nav ul li { margin: 0; }
+        .wiki-sidebar-nav ul li a { display: block; padding: 4px 8px; color: var(--wiki-link); text-decoration: none; font-size: 0.9rem; line-height: 1.8; }
+        .wiki-sidebar-nav ul li a:hover { text-decoration: underline; background: rgba(0, 0, 0, 0.03); }
+        .wiki-sidebar-nav ul li a.active { font-weight: bold; background: rgba(0, 0, 0, 0.05); }
+        .wiki-main { flex: 1; margin-left: 200px; background: var(--wiki-content-bg); }
+        .wiki-tabs { display: flex; justify-content: space-between; align-items: center; padding: 0 15px; border-bottom: 1px solid var(--wiki-border); background: var(--wiki-content-bg); }
+        .wiki-tabs-left { display: flex; gap: 0; }
+        .wiki-tabs-left a { display: inline-block; padding: 8px 12px; text-decoration: none; color: var(--wiki-link); font-size: 0.9rem; border: 1px solid var(--wiki-border); border-bottom: none; border-radius: 2px 2px 0 0; margin-bottom: -1px; background: #cee0f2; }
+        .wiki-tabs-left a.active { background: var(--wiki-content-bg); border-bottom: 1px solid var(--wiki-content-bg); }
+        .wiki-tabs-right { display: flex; align-items: center; gap: 10px; }
+        .wiki-tabs-right a { color: var(--wiki-link); text-decoration: none; font-size: 0.85rem; }
+        .wiki-search { display: flex; align-items: center; border: 1px solid #a2a9b1; border-radius: 2px; overflow: hidden; }
+        .wiki-search input { padding: 4px 8px; border: none; outline: none; font-size: 0.85rem; width: 200px; font-family: 'Comic Relief', sans-serif; }
+        .wiki-search button { background: #f8f9fa; border: none; border-left: 1px solid #a2a9b1; padding: 4px 8px; cursor: pointer; }
+        .wiki-content { padding: 20px 25px; max-width: 900px; }
+        .wiki-content h1 { font-size: 1.8rem; border-bottom: 1px solid #a2a9b1; padding-bottom: 5px; margin-top: 0; margin-bottom: 20px; font-weight: normal; }
+        .wiki-content h2 { font-size: 1.4rem; border-bottom: 1px solid #a2a9b1; padding-bottom: 3px; margin-top: 25px; margin-bottom: 15px; font-weight: normal; }
+        .wiki-content p { line-height: 1.6; margin-bottom: 15px; }
+        .wiki-content a { color: var(--wiki-link); text-decoration: none; }
+        .wiki-content a:hover { text-decoration: underline; }
+        .wiki-table { border-collapse: collapse; margin: 15px 0; width: 100%; }
+        .wiki-table th, .wiki-table td { border: 1px solid #a2a9b1; padding: 8px 12px; text-align: left; }
+        .wiki-table th { background: #eaecf0; }
+        .wiki-table tr:nth-child(even) { background: #f8f9fa; }
+        .wiki-content ul, .wiki-content ol { margin: 10px 0; padding-left: 25px; }
+        .wiki-content li { margin-bottom: 5px; line-height: 1.6; }
+        .wiki-notice { border: 1px solid #a2a9b1; background: #fef6e7; padding: 10px 15px; margin: 15px 0; }
+        .wiki-notice-title { font-weight: bold; margin-bottom: 5px; }
+        .wiki-footer { border-top: 1px solid #a2a9b1; padding: 15px 25px; margin-top: 30px; font-size: 0.85rem; color: var(--wiki-text-light); }
+        .wiki-footer a { color: var(--wiki-link); text-decoration: none; margin-right: 15px; }
+        @media (max-width: 768px) {
+            .wiki-layout { flex-direction: column; padding-top: 70px; }
+            .wiki-sidebar { position: static; width: 100%; min-width: 100%; height: auto; border-right: none; border-bottom: 1px solid #c8ccd1; display: none; }
+            .wiki-sidebar.active { display: block; }
+            .wiki-main { margin-left: 0; }
+            .wiki-tabs { flex-direction: column; gap: 10px; padding: 10px; }
+            .wiki-content { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar-fixed navbar-dark">
+        <div class="navbar-container">
+            <a href="index.html" class="nav-logo"><img src="./assets/icons/logo.png" alt="ObsidianRO Logo"></a>
+            <div class="nav-center">
+                <div class="nav-stats">Online: <span class="stat-num text-tertiary">120</span> | Vending: <span class="stat-num text-tertiary">30</span> | Peak: <span class="stat-num text-tertiary">200</span></div>
+                <div class="nav-links-desktop"><a href="descarga.html">Descargas</a><a href="staff.html">Staff</a><a href="informacion.html">Informacion</a><a href="donaciones.html">Donaciones</a><a href="ranking.html">Ranking</a><a href="wiki.html">Wiki</a></div>
+            </div>
+            <div class="nav-actions"><a href="login.html" class="btn-nav btn-acceder">Acceder</a><a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a></div>
+            <button class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+        </div>
+        <div class="nav-mobile-menu" id="mobileMenu">
+            <div class="nav-links"><a href="descarga.html">Descargas</a><a href="staff.html">Staff</a><a href="informacion.html">Informacion</a><a href="donaciones.html">Donaciones</a><a href="ranking.html">Ranking</a><a href="wiki.html">Wiki</a></div>
+            <div class="nav-mobile-actions"><a href="login.html" class="btn-nav btn-acceder">Acceder</a><a href="registro.html" class="btn-nav btn-registrarse">Registrarse</a></div>
+        </div>
+    </nav>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <a href="wiki.html" class="wiki-logo"><img src="./assets/icons/logo.png" alt="Obsidian RO Wiki"></a>
+            <nav class="wiki-sidebar-nav">
+                <h4>Principal</h4>
+                <ul><li><a href="wiki.html">Página principal</a></li><li><a href="wiki-cambios.html">Cambios recientes</a></li><li><a href="wiki-aleatoria.html">Página aleatoria</a></li><li><a href="wiki-ayuda.html">Ayuda</a></li></ul>
+                <h4>Servidor</h4>
+                <ul><li><a href="wiki-empezando.html">Empezando</a></li><li><a href="wiki-rates.html">Rates</a></li><li><a href="wiki-reglas.html">Reglas</a></li><li><a href="wiki-clases.html">Clases</a></li><li><a href="wiki-mapas.html">Mapas</a></li></ul>
+                <h4>Guías</h4>
+                <ul><li><a href="wiki-guia-basica.html">Guía Básica</a></li><li><a href="wiki-builds.html">Builds</a></li><li><a href="wiki-mvps.html">MVPs</a></li><li><a href="wiki-instancias.html">Instancias</a></li><li><a href="wiki-eventos.html">Eventos</a></li></ul>
+                <h4>Equipamiento</h4>
+                <ul><li><a href="wiki-armas.html" class="active">Armas</a></li><li><a href="wiki-armaduras.html">Armaduras</a></li><li><a href="wiki-headgears.html">Headgears</a></li><li><a href="wiki-cartas.html">Cartas</a></li><li><a href="wiki-refine.html">Refine</a></li></ul>
+                <h4>PvP</h4>
+                <ul><li><a href="wiki-woe.html">War of Emperium</a></li><li><a href="wiki-battlegrounds.html">Battlegrounds</a></li><li><a href="wiki-pvp-arena.html">PvP Arena</a></li><li><a href="wiki-ranking.html">Ranking PvP</a></li></ul>
+                <h4>Herramientas</h4>
+                <ul><li><a href="wiki-enlaces.html">Lo que enlaza aquí</a></li><li><a href="wiki-relacionados.html">Cambios relacionados</a></li><li><a href="wiki-especiales.html">Páginas especiales</a></li><li><a href="wiki-imprimir.html">Versión para imprimir</a></li><li><a href="wiki-permanente.html">Enlace permanente</a></li></ul>
+            </nav>
+        </aside>
+        <main class="wiki-main">
+            <div class="wiki-tabs">
+                <div class="wiki-tabs-left"><a href="#" class="active">Armas</a><a href="#">Discusión</a></div>
+                <div class="wiki-tabs-right"><a href="#">Leer</a><a href="#">Ver código</a><a href="#">Ver historial</a><div class="wiki-search"><input type="text" placeholder="Buscar"><button>&#128269;</button></div></div>
+            </div>
+            <div class="wiki-content">
+                <h1>Armas</h1>
+                <p>Guía de todas las tipos de armas disponibles en Obsidian RO.</p>
+
+                <h2>Espadas (Swords)</h2>
+                <table class="wiki-table">
+                    <thead>
+                        <tr><th>Arma</th><th>Nivel</th><th>ATK</th><th>Slots</th><th>Clases</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Blade [4]</td><td>1</td><td>50</td><td>4</td><td>Swordman, Thief, Merchant</td></tr>
+                        <tr><td>Claymore [2]</td><td>40</td><td>120</td><td>2</td><td>Swordman, Merchant</td></tr>
+                        <tr><td>Zweihander [1]</td><td>65</td><td>180</td><td>1</td><td>Swordman, Merchant</td></tr>
+                        <tr><td>Masamune [0]</td><td>80</td><td>200</td><td>0</td><td>Swordman</td></tr>
+                        <tr><td>Byeollungum [1]</td><td>100</td><td>250</td><td>1</td><td>Swordman, Merchant</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Espadas de una mano (One-Handed Swords)</h2>
+                <table class="wiki-table">
+                    <thead>
+                        <tr><th>Arma</th><th>Nivel</th><th>ATK</th><th>Slots</th><th>Clases</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Rapier [3]</td><td>20</td><td>75</td><td>3</td><td>Swordman, Thief, Merchant</td></tr>
+                        <tr><td>Saber [3]</td><td>40</td><td>95</td><td>3</td><td>Swordman, Thief, Merchant</td></tr>
+                        <tr><td>Haedonggum [2]</td><td>70</td><td>150</td><td>2</td><td>Swordman, Thief, Merchant</td></tr>
+                        <tr><td>Ice Fairy Sword [1]</td><td>90</td><td>180</td><td>1</td><td>Swordman, Thief, Merchant</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Varitas (Staves)</h2>
+                <table class="wiki-table">
+                    <thead>
+                        <tr><th>Arma</th><th>Nivel</th><th>ATK</th><th>MATK</th><th>Slots</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Staff [4]</td><td>1</td><td>10</td><td>20</td><td>4</td></tr>
+                        <tr><td>Wizardry Staff [4]</td><td>30</td><td>15</td><td>60</td><td>4</td></tr>
+                        <tr><td>Staff of Destruction [1]</td><td>70</td><td>20</td><td>120</td><td>1</td></tr>
+                        <tr><td>Wizardy Staff [0]</td><td>100</td><td>25</td><td>180</td><td>0</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Arcos (Bows)</h2>
+                <table class="wiki-table">
+                    <thead>
+                        <tr><th>Arma</th><th>Nivel</th><th>ATK</th><th>Slots</th><th>Clases</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Bow [4]</td><td>1</td><td>25</td><td>4</td><td>Archer, Hunter, Bard, Dancer</td></tr>
+                        <tr><td>Composite Bow [3]</td><td>20</td><td>60</td><td>3</td><td>Archer, Hunter, Bard, Dancer</td></tr>
+                        <tr><td>Gakkung Bow [2]</td><td>40</td><td>100</td><td>2</td><td>Archer, Hunter, Bard, Dancer</td></tr>
+                        <tr><td>Burning Bow [1]</td><td>60</td><td>140</td><td>1</td><td>Archer, Hunter, Bard, Dancer</td></tr>
+                        <tr><td>Hunter Bow [1]</td><td>80</td><td>170</td><td>1</td><td>Archer, Hunter, Bard, Dancer</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Manguals (Maces)</h2>
+                <table class="wiki-table">
+                    <thead>
+                        <tr><th>Arma</th><th>Nivel</th><th>ATK</th><th>Slots</th><th>Clases</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Mace [4]</td><td>1</td><td>35</td><td>4</td><td>Acolyte, Merchant</td></tr>
+                        <tr><td>Flail [3]</td><td>20</td><td>60</td><td>3</td><td>Acolyte, Merchant</td></tr>
+                        <tr><td>Chain [3]</td><td>40</td><td>90</td><td>3</td><td>Acolyte, Merchant</td></tr>
+                        <tr><td>Morning Star [2]</td><td>60</td><td>120</td><td>2</td><td>Acolyte, Merchant</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Dagas (Daggers)</h2>
+                <table class="wiki-table">
+                    <thead>
+                        <tr><th>Arma</th><th>Nivel</th><th>ATK</th><th>Slots</th><th>Clases</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Katar [4]</td><td>1</td><td>30</td><td>4</td><td>Thief</td></tr>
+                        <tr><td>Julenkatri [3]</td><td>20</td><td>55</td><td>3</td><td>Thief</td></tr>
+                        <tr><td>Special Katar [2]</td><td>40</td><td>80</td><td>2</td><td>Thief</td></tr>
+                        <tr><td>Guillotine Katar [1]</td><td>70</td><td>120</td><td>1</td><td>Thief</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="wiki-notice">
+                    <div class="wiki-notice-title">Refine</div>
+                    <p>Todas las armas pueden ser refinadas usando Oridecon o HD Oridecon. Visita <a href="wiki-refine.html">Refine</a> para más información.</p>
+                </div>
+
+                <div class="wiki-footer"><p>Esta página se editó por última vez el 12 jun 2026.</p><p><a href="wiki.html">Página principal</a><a href="#">Política de privacidad</a></p></div>
+            </div>
+        </main>
+    </div>
+    <script>
+        function toggleMenu(){document.querySelector('.nav-hamburger').classList.toggle('active');document.getElementById('mobileMenu').classList.toggle('active');updateMobileMenuPosition();}
+        function updateMobileMenuPosition(){var n=document.querySelector('.navbar-fixed'),m=document.getElementById('mobileMenu');if(n&&m)m.style.top=n.offsetHeight+'px';}
+        function updateSidebar(){var n=document.querySelector('.navbar-fixed'),s=document.querySelector('.wiki-sidebar');if(n&&s){var h=n.offsetHeight;s.style.top=h+'px';s.style.height='calc(100vh - '+h+'px)';}}
+        window.addEventListener('scroll',updateMobileMenuPosition);window.addEventListener('resize',function(){updateMobileMenuPosition();updateSidebar();});
+        document.addEventListener('DOMContentLoaded',updateSidebar);updateSidebar();
+    </script>
+</body>
+</html>
