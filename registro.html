@@ -108,7 +108,7 @@
             display: block;
         }
 
-        .btn-registrarse {
+        .btn-registrarse-form {
             width: 100%;
             padding: 0.8rem;
             background: var(--color-purple);
@@ -122,13 +122,13 @@
             margin-top: 0.5rem;
         }
 
-        .btn-registrarse:hover {
+        .btn-registrarse-form:hover {
             background: var(--color-purple-hover);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(93, 74, 168, 0.35);
         }
 
-        .btn-registrarse:active {
+        .btn-registrarse-form:active {
             transform: translateY(0);
         }
 
@@ -251,7 +251,7 @@
                     <span class="error-msg">Las contraseñas no coinciden</span>
                 </div>
 
-                <button type="submit" class="btn-registrarse">Registrate</button>
+                <button type="submit" class="btn-registrarse-form">Registrate</button>
             </form>
         </div>
     </main>
@@ -306,7 +306,7 @@
                 return;
             }
 
-            const btn = this.querySelector('.btn-registrarse');
+            const btn = this.querySelector('.btn-registrarse-form');
             const originalText = btn.innerText;
             btn.innerText = 'Registrando...';
             btn.disabled = true;
